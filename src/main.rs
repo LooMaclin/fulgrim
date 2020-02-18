@@ -60,13 +60,13 @@ impl Sandbox for Fulgrim {
     }
 
     fn view(&mut self) -> Element<FulgrimMessage> {
-        let mut main_container = Row::new().padding(1).spacing(1);
-        let mut top_row = Row::new().padding(1).spacing(1);
+        let mut main_container = Row::new();
+        let mut top_row = Row::new();
         top_row = top_row.push(
             Button::new(&mut self.add_button, Text::new("Add request"))
                 .on_press(FulgrimMessage::Add),
-        ).max_width(2000).max_height(333).width(Length::Fill).padding(10).spacing(10);
-        let mut center_row = Row::new().padding(1).spacing(1);
+        ).width(Length::Fill);
+        let mut center_row = Row::new();
         let mut center_column = Column::new();
         if let Some(selected_request_index) = self.selected_request {
             if let Some(current_request) = self.requests.get(selected_request_index) {
@@ -86,10 +86,10 @@ impl Sandbox for Fulgrim {
                     .on_press(FulgrimMessage::ChangeSelectedRequest(i)),
             );
         }
-        let right_column = Column::new().padding(1).spacing(1);
-        let bottom_row = Row::new().spacing(1).padding(1);
+        let right_column = Column::new();
+        let bottom_row = Row::new();
         center_row = center_row.push(left_column).push(center_column).push(right_column);
-        let container : Element<FulgrimMessage> = main_container.push(top_row).push(center_row).push(bottom_row).into();
+        let container : Element<FulgrimMessage> = main_container.push(top_row).push(center_row).push(bottom_row).spacing(10).padding(10).into();
         container.explain(Color::BLACK)
     }
 }
